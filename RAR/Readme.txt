@@ -24,3 +24,5 @@ SOURCE: https://www.rarlab.com/rar/winrar-x64-611tc.exe
 SHA1: c7b5ad7c1c439bb98aae1f6c635bd9bbb82071d0
 SHA256: 126ac1b858f769d5dffb39cff603bf0ec79dc21b8d7b79e92e29463d1786996a
 https://www.virustotal.com/gui/file/126ac1b858f769d5dffb39cff603bf0ec79dc21b8d7b79e92e29463d1786996a
+
+All power to Copyright rarlab.com Powered by RAR rarlab
