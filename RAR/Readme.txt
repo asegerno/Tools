@@ -13,7 +13,7 @@ SHA256: a364612c5acc56c057fec0428220eca991b58a47bd3a7ae4c1b4e0a644ad79da
 https://www.virustotal.com/gui/file/a364612c5acc56c057fec0428220eca991b58a47bd3a7ae4c1b4e0a644ad79da
 
 NAME: winrar-x64-611tc.exe
-URL: 
+URL: https://github.com/asegerno/Tools/blob/main/RAR/winrar-x64-611tc.exe
 SHA1: c7b5ad7c1c439bb98aae1f6c635bd9bbb82071d0
 SHA256: 126ac1b858f769d5dffb39cff603bf0ec79dc21b8d7b79e92e29463d1786996a
 https://www.virustotal.com/gui/file/126ac1b858f769d5dffb39cff603bf0ec79dc21b8d7b79e92e29463d1786996a
