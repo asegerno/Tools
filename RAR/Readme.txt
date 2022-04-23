@@ -1,6 +1,7 @@
 RAR is a zip tool
 https://www.rarlab.com/
 NAME: winrar-x64-611.exe
+URL: https://github.com/asegerno/Tools/blob/main/RAR/winrar-x64-611.exe
 SHA1: da5cbdf1453faae3694cbf31324caeb201689cfa
 SHA256: 24fc7955fada6b9802f4e50e935ebd5654fd7382faf641b27dd626f4b3563974
 https://www.virustotal.com/gui/file/24fc7955fada6b9802f4e50e935ebd5654fd7382faf641b27dd626f4b3563974
