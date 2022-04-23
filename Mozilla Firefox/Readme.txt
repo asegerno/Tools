@@ -1,2 +1,2 @@
 Mozilla Firefox
-https://www.mozilla.org/en-US/firefox/all/#product-desktop-release
+https://www.mozilla.org/en-US/firefox/all/
