@@ -1,5 +1,6 @@
 ajwawa is a keystroke script tool
 https://www.ajwawa.cn/
+
 NAME: ajwawa.exe
 URL: https://github.com/asegerno/Tools/blob/main/ajwawa/ajwawa.exe
 SOURCE: https://www.ajwawa.cn/ajwawa.exe
