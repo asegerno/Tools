@@ -14,3 +14,5 @@ SOURCE: https://www.crark.net/download/crark55.rar
 SHA1: 3f2de3461eb7ed86631ed6e540d97a8f60a8e4e4
 SHA256: 169c62b77ed189f508df593e1100f7090577067195e76537ad84022ab2ff2595
 https://www.virustotal.com/gui/file/169c62b77ed189f508df593e1100f7090577067195e76537ad84022ab2ff2595
+
+All power to Copyright crark.net Powered by Crark P. Semjanov / PSW-soft
