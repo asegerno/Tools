@@ -1,0 +1,686 @@
+<html>
+<head>
+<title>cRARk v. 5.5 with OpenCL support</title>
+<style>
+body{	padding-bottom:400}
+a:link, a:visited, a:active{
+	font-family:Georgia;
+	color:#5588aa;
+	text-decoration:none}
+a:hover{
+	color:#f00;
+	text-decoration:underline}
+div, pre{
+	border:#000 1 solid;padding:5;margin:5 0 5;text-indent:0}
+table, div{
+	font-family:Courier New;
+	font-size:10pt}
+table, td{
+	border-color:#444;
+	border-style:solid}
+table{
+	background-color:#000;
+	border-width:0 0 1 1;
+	border-spacing:0;
+	border-collapse:collapse}
+td{	background-color:#fff;
+	border-width:1 1 0 0;
+	padding:5}
+tbody{
+	vertical-align:top}
+p{	text-indent:20}
+dd{	text-indent:-20}
+b{	font-size:12pt}
+.red {color: #e70d04}
+
+</style>
+</head>
+<body>
+
+<div align=center style="border:0">
+<div style="width:570;border:0;text-align:justify">
+<center>
+(THIS WAS THE MACHINE TRANSLATION)
+<hr style="color:#000;width:300;height:1">
+<font style="font-family:Georgia;font-size:24pt;font-weight:bold"><font style="font-size:36pt">c R A R k</font><br>(First & Fastest RAR Cracker)<br>v. 5.5</font>
+<p style="text-indent:0">(c) Copyright PSW-soft 1995-2001, 2006-2019 by P. Semjanov
+</center>
+
+<p>THIS PROGRAM VERSION IS DISTRIBUTED "AS IS". YOU MAY USE IT AT YOUR OWN RISK. ALL THE CLAIMS TO PROGRAM OPERATION WILL BE REJECTED. THE AUTHOR DOES NOT ALSO GUARANTEE THIS PROGRAM FUTURE MAINTENANCE AND UPDATE.
+<p>This is FREEWARE program, so it can be distributed under the following conditions: program code is kept unchanged and the program is distributed in the form of distributive archive. Any commercial use of this program is prohibited!
+
+<ul style="width:500;line-height:1.7em;padding:20 0 120">
+<a name=0></a>
+<dt>1. <a href=#1>PURPOSES AND CHARACTERISTICS</a>
+<dt>2. <a href=#2>REQUIREMENTS FOR THE INPUT ARCHIVE</a>
+<dt>3. <a href=#3>Working with the program</a>
+<dt>4. <a href=#4>THE USE OF PASSWORD DEFINITION FILE</a>
+<ul style="line-height:1.5em">
+	<dt>4.1. <a href=#41>Password definition file format</a>
+	<dt>4.2. <a href=#42>Password definition</a>
+	<ul style="line-height:1.3em">
+		<dt>4.2.1. <a href=#421>Character sets</a>
+		<dt>4.2.2. <a href=#422>Dictionary words and their modifiers</a>
+		<dt>4.2.3. <a href=#423>Permutation brackets</a>
+	</ul>
+	<dt>4.3. <a href=#43>Dictionaries and character sets definitions</a>
+	<ul style="line-height:1.3em">
+		<dt>4.3.1. <a href=#431>Dictionaries definition</a>
+		<dt>4.3.2. <a href=#432>Definition of the character sets in use</a>
+		<dt>4.3.3. <a href=#433>Definition of conversion modifiers</a>
+		<dt>4.3.4. <a href=#434>Special character sets definition</a>
+	</ul>
+	<dt>4.4. <a href=#44>USEFUL EXAMPLES OF PASSWORD DEFINITION</a>
+</ul>
+<dt>5. <a href=#5>Possible problems (FAQ)</a>
+<dt>6. <a href=#6>On PDL library</a>
+<dt>7. <a href=#7>How to contact the author</a>
+<dt>8. <a href=#8>Special thanks</a>
+</ul>
+
+<p style="text-indent:0"><a name=1><br></a><b>1. <a href=#0>PURPOSES AND CHARACTERISTICS</a></b>
+
+<p>The cRARk program is designed to determine a forgotten password for RAR-archives. This program operates adequately with RAR-archives versions 2.x, 3.x, 4.x, 5.x.
+<p>To proceed with cRARk program you need a computer with the Pentium compatible processor with SSE2 support or later. It is recommended to use as powerful processor as possible (the code is optimized for Intel Core 2/Core i7, AMD
+Athlon/Bulldozer).
+From v. 3.2, cRARk supports NVIDIA GPU with CUDA support and computing capability 1.1.
+From v. 3.4, cRARK also supports OpenCL both on NVIDIA and ATI/AMD Radeon GPUs.
+<p>cRARk is the tool for professionals, no GUI or great service is provided. But it tries to maximize your abilities for passwords definition and to minimize search time. cRARk uses Password Definition Library (PDL), a very powerful tool allowing you to define rules to generate passwords.
+<p>The rate of password search should be about of 500 password per second on modern powerful computer, so finding the 6-characters password of lower case Latin letters will need about a month.
+In the GPU the rate could achive 100000 p/s. Rate for dictionary attack is about 200 pass/sec (GPU is not supported).
+
+<p style="text-indent:0"><a name=2><br></a><b>2. <a href=#0>REQUIREMENTS FOR THE INPUT ARCHIVE</a></b>
+
+<p>The following requirements to testing RAR archive are to be met:
+<ul style="margin:5 0 0 24;text-indent:0">
+<li>There is at least one encrypted file.
+<li>The password should be not longer than 28 symbols (RAR 3.x-4.x).
+</ul>
+<p>In case of solid-archives, the first file should satisfy these requirements. Therefore, if the files in archive were encrypted with the different passwords, the password for first file will be found.
+<p>cRARk must be working with selfextracting (sfx), multivolume archives and archives with encrypted headers.
+<p>From version 3.2, cRARk supports passwords computations
+on GPU cards (CUDA and OpenCL technology). 
+Current limitations are:
+<ul style="margin:5 0 0 24;text-indent:0">
+<li> Only NVIDIA cards with computing capability 3.0 and up is supported.
+AMD/ATI GPUs are supported from 5xxx/6xxx serie.
+<li> You need the latest drivers with CUDA and/or OpenCL support
+<li> GPU engine is activated if password definition
+contains '*' (repetition symbol). All another
+passwords are tested on CPU.
+<li> Files with advanced compression options (-mc) not supported
+<li> RAR 2.x archives also not supported 
+</ul>
+
+<p style="text-indent:0"><a name=3><br></a><b>3. <a href=#0>Working with the program</a></b>
+
+<p>To run the program YOU NEED TO CREATE PASSWORD DEFINITION FILE firstly (see <a href=#4>section 4</a>).
+<p>This is a command-line utility! You should run it from command (DOS) prompt.
+<p>To run the program you should use:
+<div>CRARK [options] archive</div>
+<p>The found password is printed in such a form:
+<div>truepass - CRC OK</div>
+<p>Next it is repeated in hexadecimal PDL-like form (see <a href=#421>section 4.2.1</a>).
+<p>All other messages ARE NOT passwords and are intended as progress indication of the program.
+<p>Options in this mode are:
+<p style="text-indent:0">
+<center><table><tbody>
+<tr><td width=60>-lXX</td><td>set password length to XX at least (XX = 0..255, XX = 1 by default). This parameter affects password length only when '*' is used in its definition (see <a href=#421>section 4.2.1</a>);</td></tr>
+<tr><td>-gXX</td><td>set password length to XX at most (XX = 0..255, XX = 8 by default)</td></tr>
+<tr><td>-pXXXX</td><td>set the name of password definition file ("PASSWORD.DEF" by default).</td></tr>
+<tr><td>-b</td><td>perform benchmarking</td></tr>
+<tr><td>-v</td><td>debug mode (see <a href=#5>section 5</a>). It may be used to show character sets in use. This option generates also all the passwords according to with their definition; it does not test but prints them, so you can check their validity.</td></tr>
+<tr><td>-c</td><td>disable GPU support (use CPU only)</td></tr>
+<tr><td>-dXX</td><td>set GPU delay (XX = 0..5), 0 - fastest, 5 - slower, but smoothest</td></tr>
+<tr><td>-nXX</td><td>set GPU device number (0 by default)</td></tr>
+<tr><td>-fXYZ</td><td>(advanced) set crypto functions #X,Y,Z. Some information about available functions is printed by -b option.</td></tr>
+</tbody></table></center>
+
+<p style="text-indent:0"><a name=4><br></a><b>4. <a href=#0>USING OF PASSWORD DEFINITION FILE</a></b>
+
+<p>Password definition file is the main control file. Its translation and processing are the main task of PDL library. Its format doesn't depend on application, to which PDL is linked, so this library can be used for any password searching program.
+<p>Password definition language (PDL) is designed for flexible and powerful control of password generation. It allows password definition creation using all known information about a password which substantially reduce the time of password searching. The typical example of such information is : "I remember that my password consist of two words separated by the one of the signs "-", "_", "=", "," and the first letters of the words are in the uppercase" (see <a href="#44">example 1</a> to see how it looks in PDL).</p>
+<p>The main idea of PDL language is component-based description of password. The above example has three components - first word, separator (symbol) and the second word. In most cases is it possible to divide the password verbal description into components.</p>
+<p>The syntax of PDL language is close to the regular expressions syntax. Your knowledge of regular expressions will help you understand PDL language easily.</p>
+ <p>There are three main components type in PDL language - <a href="#421">charsets</a>, <a href="#422">words</a> and <a href="#423">generators</a>.</p>
+
+<p style="text-indent:0"><a name=41><br></a><b>4.1. <a href=#0>Password definition file format</a></b>
+
+<p>Password definition file is just text file in UTF-16 or UTF-8 format (Windows) or UTF-8 (Linux, Mac OS) and 
+consists of two parts: firstly, <a href="#43">dictionary and character set definition</a>, and secondly, <a href="#42">passwords definition</a>.</p>
+The parts are separated by a line of two '##' symbols:
+<div>[ &lt;dictionary and character set definition> ]<br>##<br>&lt;passwords definition></div>
+<p>The first part could be missing, in that case password definition file starts with '##' symbols.
+<p>In all other cases the symbol '#' is considered as a start of comment.
+<p>Space characters and tabs are ignored in password definition file and may separate any components.
+<p>To make it easy, let's look upon the password definition mechanism at first and then character set definition, contrary to their position in password definition file.
+
+<p style="text-indent:0"><a name=42><br></a><b>4.2. <a href=#0>Password definition</a></b>
+
+<p>This is the main part of the file. IT NECESSARILY EXSISTS IN ANY PASSWORD DEFINITION FILE (PASSWORD.DEF) AFTER THE LINE '##' and presets password generation rules to be checked out later on. It consists of the text lines, each of them gives its own password set and mode of operation, i.e. an algorithm of password search. Each line is independent and is processed separately, herewith  the total number of checked passwords is counted up.
+<p>Character sets, dictionary words and generators form password definition. They preset one or more characters, which will hold the appropriate position in a password.
+
+<p style="text-indent:0"><a name=421><br></a><b>4.2.1. <a href=#0>Character sets</a></b>
+	  <p>Character set (charset) is a range of characters, any of them can occupy current position in a password. The supported charsets are:</p>
+	  <p>1) Simple single characters (<strong class="red">a</strong>, <strong class="red">b</strong>, etc.). It means this particular character occupies given position in a password;</p>
+	  <p>2) Shielded characters. If any of special characters can ever occur in the password, it must be shielded with '\'. The meaning is identical with item 1 mentioned above. Among these characters are:</p>
+	  <table id="chars">
+	    <tr><td><strong class="red">\$</strong>, <strong class="red">\.</strong>, <strong class="red">\*</strong>, <strong class="red">\?</strong>, <strong class="red">\=</strong></td><td>'$', '.', '*', '?', '='</td></tr>
+		<tr><td><strong class="red">\]</strong>, <strong class="red">\[</strong>, <strong class="red">\{</strong>, <strong class="red">\}</strong>, <strong class="red">\(</strong>, <strong class="red">\)</strong></td><td>corresponding brackets;</td></tr>
+		<tr><td><strong class="red">\ </strong>(space character)</td><td>space character</td></tr>
+		<tr><td><strong class="red">\XXXX</strong></td><td>any Unicode character in hex (X is a hexadecimal digit), like \D9E9</td></tr>
+		<tr class="last"><td><strong class="red">\0</strong></td><td>no character. It is usually used in conjunction with "real" character (please find examples below).</td></tr>
+	  </table>
+	  <p>Generally, any character can be shielded except hexadecimal digits.</p><br />
+<p>3) Macros of character set. It means that current position in the password can be occupied by any character from the set. These sets are specified in the first part of password definition file (see <a href="#432">section 4.3.2</a>) and are denoted as:
+<p >
+
+	<table id="chars">
+<tr><td><strong class="red">$a</strong></td><td>lower-case Latin letters (26 letters, unless otherwise specified)</td></tr>
+<tr><td><strong class="red">$A</strong></td><td>upper-case Latin letters (26 letters, unless otherwise specified)</td></tr>
+<tr><td><strong class="red">$!</strong></td><td>special characters (32 characters, unless otherwise specified)</td></tr>
+<tr><td><strong class="red">$1</strong></td><td>digits (10 digits, unless otherwise specified)</td></tr>
+<tr><td><strong class="red">$i</strong></td><td>lower-case letters of national alphabet 
+	 </td></tr>
+<tr><td><strong class="red">$I</strong></td><td>upper-case letters of national alphabet 
+	 </td></tr>
+<tr><td><strong class="red">$o</strong></td><td>other user-specified characters</td></tr>
+<tr><td><strong class="red">?</strong></td><td>any character (i.e. all the characters, included into the macros mentioned above)</td></tr>
+</table>
+
+<p >NOTE: macros <strong class="red">$v</strong> and <strong class="red">$p</strong> (see <a href="#434">section 4.3.4</a>) cannot be used for password definition.
+<p>4) Any combinations of the characters mentioned above. It 
+must be written in square brackets. The meaning is identical with item 3 
+mentioned above. For example: 
+<p >
+
+	<table id="chars">
+<tr><td><strong class="red">[$a $A]</strong></td><td>any Latin letter</td></tr>
+<tr><td><strong class="red">[abc]</strong></td><td>a, or b, or c</td></tr>
+<tr><td><strong class="red">[$1 abcdef]</strong></td><td>hexadecimal digit</td></tr>
+<tr><td><strong class="red">[s \0]</strong></td><td>s or nothing</td></tr>
+<tr><td><strong class="red">[$a $A $1 $! $i $I $o]</strong></td><td>
+	this is equivalent to ?</td></tr>
+</table>
+
+<p>5) Regular repetition character <strong class ="red">*</strong>.It means the 
+previous character set has to be repeated in related item of the password 0 or 
+more times. For example:
+<p>
+
+<table id="chars">
+<tr><td><strong class="red">$a *</strong></td><td>
+	a password of any length, consisting of lower-case Latin letters</td></tr>
+<tr><td><strong class="red">[ab] * c</strong></td><td>
+	c, ac, bc, aac, abc, bac, bbc, aaac, ...</td></tr>
+<tr><td><strong class="red">[$a $A] [$a $A $1] *</strong></td>
+	<td>"identifier", i.e. a sequence of letters and digits with a letter at first position</td></tr>
+</table>
+
+<p>Note that password of zero length (null password) is physically meaningful and is not always the same as no password at all.
+
+<p>The length of repetition is computed in two ways:
+<ul>
+<li>automatically on the base of the defined maximum and minimum password length
+options. (options. (Note, when there is no '*' in password definition, these parameters are ignored.)  
+</li>
+<li>set explicitly in brackets in such way: <strong class="red">* (length)</strong> or <strong class="red">* (min length, max length)</strong>. Examples:
+
+<p>
+<table id="chars">
+<tr><td><strong class="red">a b *(0,3) c</strong></td><td>will generate 4 passwords: ac, abc, abbc, abbbc</td></tr>
+<tr><td><strong class="red">a [bc] *(2) d</strong></td><td>abbd, abcd, acbd, accd</td></tr>
+<tr><td><strong class="red">$1 *(2,4)</strong></td><td>all two-, three- and four-digit numbers</td></tr>
+</table>
+</li>
+</ul>
+<p>
+It is recommended to use '*' as wide as possible. This is because it allows to perform the most powerful search. Although the constructions '? *' and '? ? *' seem to be alike from the logic standpoint, the first one will be searched through faster.
+<p>Current limitation: '*' can be used only once.
+
+<p style="text-indent:0"><a name=422><br></a><b>4.2.2. <a href=#0>Dictionary words and their modifiers</a></b>
+
+<p>Contrary to the character set, the words 
+present several consecutive passwords characters. &nbsp;Two dictionaries are 
+supported by PDL library: main (with ordinary words mainly) and user’s (where 
+special information can be stored, for example, proper names, dates, etc.), 
+though there is no difference between them.</p>
+<p>Dictionary is a text file in both UTF-16 or UTF-8 encoding (Windows) or only UTF-8 (Linux, Mac), consisting of 
+the words, separated by the end-of-line characters. Both DOS-format (CR/LF) and 
+UNIX-format (LF) files can be used. Preferably to use words of the same (lower) 
+case in dictionaries (to increase search rate, among other factors). To sort out 
+words by its length is also desirable. </p>
+<p>Thus, there are two macros:
+<p >
+
+<table id="chars">
+<tr><td><strong class="red">$w</strong></td><td>a word from the main dictionary</td></tr>
+<tr><td><strong class="red">$u</strong></td><td>a word from the user dictionary</td></tr>
+</table>
+
+<p>As is known altered words are often used 
+as passwords. So a whole set of word modifiers is introduced to determine such 
+passwords. Among these are:</p>
+<p >
+
+	<table id="chars">
+<tr><td><strong class="red">.u</strong> (upper)</td><td>to upper-case</td></tr>
+<tr><td><strong class="red">.l</strong> (lower)</td><td>to lower-case</td></tr>
+<tr><td><strong class="red">.t</strong> (truncate)</td><td>to truncate up to the given length</td></tr>
+<tr><td><strong class="red">.c</strong> (convert)</td><td>to convert the word</td></tr>
+<tr><td><strong class="red">.j</strong> (joke)</td><td>to upper-case some letters</td></tr>
+<tr><td><strong class="red">.r</strong> (reverse)</td><td>to reverse the word</td></tr>
+<tr><td><strong class="red">.s</strong>(shrink)</td><td>to shrink the word</td></tr>
+<tr><td><strong class="red">.p</strong> (duplicate)</td><td>to duplicate the word</td></tr>
+</table>
+
+<p>Modifiers may have parameters, written 
+in round brackets. For modifiers, meant for single letters use, it is possible 
+to preset a number of the letter as a parameter. Lack of parameters or null 
+parameter means &quot;the whole word&quot;.Then, letters can be numerated from both the 
+beginning of the word and the end of the word. The end of the word is denoted 
+with the character '-' .</p>
+<p>There are only three such modifiers for today: <strong class="red">.u</strong>, <strong class="red">.l</strong>, <strong class="red">.t</strong>. So, use:
+<p >
+
+	<table id="chars">
+<tr><td><strong class="red">.u </strong>or <strong class="red">.u(0)</strong></td><td>
+	to upper-case the whole word (PASSWORD)</td></tr>
+<tr><td><strong class="red">.u(1), .u(2)</strong></td><td>to upper-case only the first (the second) letter (Password, pAssword)</td></tr>
+<tr><td><strong class="red">.u(-), .u(-1)</strong></td><td>to upper-case the last (the next to last) letter (passworD, passwoRd)</td></tr>
+<tr><td><strong class="red">.t(-1)</strong></td><td>to truncate the last letter in the word (passwor)</td></tr>
+</table>
+
+<p>The other modifiers operate with the whole words only and their parameters give the way of modification. The following modifier parameters are specified for today:
+<p >
+
+	<table id="chars">
+<tr><td><strong class="red">.j(0) </strong>or <strong class="red">.j</strong></td><td>
+	to upper-case odd letters (PaSsWoRd)</td></tr>
+<tr><td><strong class="red">.j(1)</strong></td><td>to upper-case even letters (pAsSwOrD)</td></tr>
+<tr><td><strong class="red">.j(2)</strong></td><td>to upper-case vowels (pAsswOrd)</td></tr>
+<tr><td><strong class="red">.j(3)</strong></td><td>to upper-case consonants (PaSSWoRD)</td></tr>
+<tr><td><strong class="red">.r(0)</strong> or <strong class="red">.r</strong></td><td>to reverse the word (drowssap)</td></tr>
+<tr><td><strong class="red">.s(0)</strong> or <strong class="red">.s</strong></td><td>to reduce the word by discarding vowels unless the first one is a vowel<br>(password -> psswrd, offset -> offst)</td></tr>
+<tr><td><strong class="red">.p(0)</strong> or <strong class="red">.d</strong></td><td>to duplicate the word (passwordpassword)</td></tr>
+<tr><td><strong class="red">.p(1)</strong></td><td>to add reversed word (passworddrowssap)</td></tr>
+<tr><td><strong class="red">.c(&lt;number>)</strong></td><td>to convert all the letters in the word according to the appropriate conversion string (see <a href="#433">section 4.3.3</a>)</td></tr>
+</table>
+
+<p>All the modifiers operate adequately with both Latin and national letters, provided that the rules of national character sets definition are observed. Clearly there can be more than one modifier (the number of consecutive modifiers is limited by 63, which is unlikely to be exceeded). For example: (let 
+$w</strong> mean a &quot;password&quot;</strong>):
+<p >
+
+	<table id="chars">
+<tr><td><strong class="red">$w.u(1).u(-)</strong></td><td>
+	PassworD</td></tr>
+<tr><td><strong class="red">$w.s.t(4)</strong></td><td>
+	pssw</td></tr>
+<tr><td><strong class="red">$w.t(4).s</strong></td><td>
+	pss</td></tr>
+</table>
+
+<p style="text-indent:0"><a name=423><br></a><b>4.2.3. <a href=#0>Generators</a></b>
+
+<p >Generator is the last possible component type and it generates several 
+passwords of different length from the given symbols in current position. 
+Generators are denoted by <strong class="red">{</strong> and <strong class="red">}</strong> symbols followed by generator type, like 
+<strong class="red">{abc}.u</strong>. The opening bracket indicates the position of beginning the 
+generator, and the closing one - the ending position.<p >
+1) The default generator - permutation brackets <strong class="red">{&nbsp;}</strong>
+<p > 
+This generator has no explicit type, i.e. it simply denoted by <strong class="red">{</strong> and <strong class="red">}
+</strong><p>The problem is widely met, when you remember your password, but it is not 
+valid for some reason. Probably, you mistype it. The PDL 
+engine has its own algorithm to restore such passwords. The following typing mistakes are considered: two neighboring letters are swapped (psasword</strong>), a letter is omitted (pasword</strong>), an needless letter is inserted (passweord</strong>) or one letter is replaced with another (passwird</strong>). Such password changes will be referred to as permutations.
+<p>To indicate the beginning and the end of the password section where permutations could appear, permutation brackets '{' and '}' are used. The bracket '}' can be followed by a number of permutations (1 by default), separated by 
+a dot. The physical meaning of the number of permutations is the number of 
+simultaneously introduced mistakes. For example:
+<p ><strong class="red">{abc}</strong> - 182 (different) passwords will be obtained, including:
+<p >
+
+	<table id="chars">
+<tr><td><strong class="red">bac, acb</td><td>2 swaps</td></tr>
+<tr><td><strong class="red">bc, ac, bc</td><td>3 omissions</td></tr>
+<tr><td><strong class="red">aabc, babc ...</td><td>4 * 26 - 3 insertions</td></tr>
+<tr><td><strong class="red">bbc, cbc ...</td><td>3 * 25 replacements</td></tr>
+<tr><td><strong class="red">abc</td><td>the word itself</td></tr>
+</table>
+<p ><strong class="red">{password}.2</strong> - the following words will be generated: psswrod, passwdro, paasswor, etc.;
+<p ><strong class="red">{$w}</strong> - all the words, containing one mistake, from the main dictionary.
+<p >Notes:
+<p>a) It is obvious that some passwords will be obtained more than once, so the 
+larger is the number of permutations, the larger is the number of replicas. 
+Efforts were made in this program to reduce replicas, but they are purely 
+empirical and were made for two permutations at most. In other words, for the 
+large numbers there is no certainty that a particular password cannot be 
+discarded erroneously.
+<p>b) For insertion and replacement one should know the set of characters to be inserted or replaced. In the event this set is not specified explicitly (see <a href="#434">section 4.3.4</a>), this program forms it automatically for character sets, in relation to standard set these characters are from (i.e. for 
+<strong class ="red">{password}</strong> $a will be inserted, for <strong class ="red">{Password}</strong> [$a $A] will be inserted). The similar operation with words is performed, based on the first word from the dictionary with modifiers being taken into account. In the event this set is specified explicitly, it is just the set to be used.
+<p>2) Upper and lowercase generators <strong class ="red">{}.u, {}.l</strong><p>These generators will generate 
+all possible upper or lower-case combinations from the given symbols, like:
+	<table id="chars">
+<tr><td><strong class="red">{abc}.u</strong></td><td>abc, Abc, aBc, abC, ABc, AbC, aBC, ABC</td></tr>
+<tr><td><strong class="red">{AbC}.l</strong></td><td>AbC, abC, Abc, abc</td></tr>
+<tr><td><strong class="red">{$w}.u</strong></td><td>All main dictionary words with all possible upper-case 
+	conversion</td></tr>
+</table>
+	<p>3) Conversion generator<strong class ="red"> {}.c</strong></p>
+	<p>Like the above generator, this one is used to generate all possible 
+	combination of word using the appropriate convert table&nbsp; (see <a href="#433">section 4.3.3</a>) 
+	written in round brackets.</p>
+	<p>Let .c(0) convert table defines conversion of letters to similar symbols, 
+	then</p>
+	<table id="chars">
+<tr><td><strong class="red">{password}.c(0)</strong></td><td>password, pa$sword, pas$word, passw0rd, pa$$word, 
+	pa$sw0rd,&nbsp; pas$w0rd, pa$$w0rd</td></tr>
+	</table>
+	<p>Of course, there may be several generators in the password description. 
+	So, the definition like</p>
+	<p><strong class ="red">{my{good}password}.u</strong></p>
+	<p>may occur.</p>
+
+
+<p style="text-indent:0"><a name=43><br></a><b>4.3. <a href=#0>Dictionaries and character sets definitions</a></b>
+
+<p>All the definitions are set in the beginning of password definition file up to the characters '##'.
+
+<h3><a name=431></a>4.3.1. Dictionaries definition</h3>
+
+<p>The main and user dictionaries in use (see <a href="#422">section 4.2.2</a>) are initially defined as usual. It is necessary only if you are going to use words from the dictionaries when defining passwords, i.e. $w or $u.
+<p>The dictionaries are given as follows:
+<table id="chars">
+<tr><td><strong class="red">$w = "main.dic"</td><td># main dictionary</td></tr>
+<tr><td><strong class="red">$u = "c:\\dict\\user.dic"</td><td># user dictionary</td></tr>
+</table>
+<p>File name is to be quoted, the path characters are to be shielded.
+<h3><a name=432></a>4.3.2. Definition of the character sets in use</h3>
+
+<p>The character sets in use are defined as usual. They are classified in two groups: predefined and user-defined.
+<p>Predefined sets include:
+<p >
+
+	<table id="chars">
+<tr><td><strong class="red">$a</strong></td><td>lower-cased Latin letters, 26 letters in all</td></tr>
+<tr><td><strong class="red">$A</strong></td><td>upper-cased Latin letters, 26 letters in all</td></tr>
+<tr><td><strong class="red">$!</strong></td><td>special characters (32 characters in all)<br>{}:"&lt;>?[];\',./~!@#$%^&*()_+`-=\|</td></tr>
+<tr><td><strong class="red">$1</strong></td><td>digits, 10 digits in all</td></tr>
+</table>
+
+<p>User-defined sets include:
+<p >
+
+	<table id="chars">
+<tr><td><strong class="red">$i</strong></td><td>lower-cased letters of national alphabet</td></tr>
+<tr><td><strong class="red">$I</strong></td><td>upper-cased letters of national alphabet</td></tr>
+<tr><td><strong class="red">$o</strong></td><td>additional character set (for example, any non-typable characters)</td></tr>
+</table>
+
+<p>Character sets are defined as follows:
+	<pre><strong class="red">$&lt;charset&gt; = [ &lt;single characters or character sets&gt; ]</strong></pre>
+
+<p>In other words, character set is written as combination of characters (see <a href="#421">section 4.2.1</a>), for example:
+
+	<pre><strong class="red">$i = [$a   &#x00e4 &#x00f6 &#x00fc &#x00df ]
+$o = [$! $1 \20ac]</strong></pre>
+
+<p >NOTES:
+<p>1) Any character sets are allowed to be defined, including pre-defined. For example, you may include additional characters, such as euro sign &euro; (\20ac) into the set $!
+<p>2) When the sets $i and $I are being defined, the function of switching between lower/upper case is defined automatically. So it is important to have letters being ordered uniformly in these sets.
+<p>The full character set '?', consisting of [$a $A $1 $!$i $I $o] (just such an order is of importance in the next section), is never formed until all the characters are defined.
+
+<h3><a name=433></a>4.3.3. Definition of conversion modifiers</h3>
+<p>The conversion modifiers <strong class="red">.c</strong> may be defined (see <a href="#422">section 4.2.2</a>) are described the conversion rule of
+one character to another. It is performed with the line of the form:
+<strong class="red">.c(&lt;number>) = "&lt;conversion string>"</strong>
+<p>The conversion string is written in such way
+<strong class="red">"o=0|l=1|s=5|b=6"</strong>, where the conversion pairs are divided with <strong class="red">'|'</strong> symbol
+and at left side of <strong class="red">'='</strong> is written a character to be converted to character on the right side of '='.
+
+<p>For example, let the $w is "lower", then $w.c(0) = "10wer". The characters '\' and '|' are to be shielded in conversion string. The numbers of modifiers may vary from 0 to 255.
+
+<h3><a name=434></a>4.3.4. Special character sets definition</h3>
+
+<p>Among special character sets are:
+	<table id="chars">
+<tr><td><strong class="red">$v</strong></td><td>a set of vowels (in all alphabets being used). It is needed only when .s and .j modifiers are used</td></tr>
+<tr><td><strong class="red">$p</strong></td><td>a set for insertion and replacement for permutation brackets. It is needed only if automatic generation of this set does not suit you for some reason (see <a href="#423">section 4.2.3</a>)</td></tr>
+</table>
+<p>These sets are defined in a similar way to the other character sets.
+
+<h3>4.3.5.<a name="435"></a>Minimal and maximal password length</h3>
+<p >The 
+minimal and maximal password length settings affect only password definition 
+with <a href="#421">regular repetition symbol</a> and not affected other 
+password definition including&nbsp; simply charsets, words or generators. To set 
+the default password range, use keywords <strong class="red">min</strong> and <strong class="red">max,</strong> like:
+	<table id="chars">
+<tr><td><strong class="red">min = 1</strong></td><td>
+	generate passwords from one character long </td></tr>
+<tr><td><strong class="red">max = 5</strong></td><td>generate 
+	passwords up to 5 characters long</td></tr>
+</table>
+
+<p style="text-indent:0"><a name=44><br></a><b>4.4. <a href=#0>USEFUL EXAMPLES OF PASSWORD DEFINITION</a></b>
+<p>1) I remember that my password consist of two words separated by the one of 
+the signs &quot;-&quot;, &quot;_&quot;, &quot;=&quot;, &quot;,&quot; and the first letter of the words are in the 
+uppercase
+<p><strong class="red"> 
+$w = "dictionary.txt"<br>
+##<br>
+$w.u(1) [\-_\=,] $w.u(1)&nbsp;&nbsp;&nbsp;&nbsp;# &quot;-&quot;, &quot;=&quot; needs to be shielded</strong>
+<p>It should be mentioned that both $w are distinct words, so a total of 20000 * 4 * 20000 = 1 600 
+000 000 passwords (if there are 20000 dictionary words) will be generated.
+<p>If you're not sure if first letter be in uppercase or not, you need to make all possible combination writing four-line definition:
+<p><strong class="red"> 
+$w = "dictionary.txt"<br>
+##<br>
+$w.u(1) [\-_\=,] $w.u(1)<br>
+$w.u(1) [\-_\=,] $w<br>
+$w [\-_\=,] $w.u(1)<br>
+$w [\-_\=,] $w</strong>
+
+<p>Additionaly, if you may insert from 1 to 3 symbols between the words, the definition is changed as:
+<p><strong class="red"> 
+$w = "dictionary.txt"<br>
+##<br>
+$w.u(1) [\-_\=,] *(1,3) $w.u(1)</strong>
+
+<p>2) Most common definition - brute-force search using only lower-case Latin letters.<p><strong class="red"> $a *</strong>
+<p>You also can use <strong class="red">min=</strong> and <strong class="red">max=</strong> settings or -l and -g options to define password length.
+<p>3) The same as the above, but using both cases Latin letter</p>
+<p><strong class="red"> [$a $A] *</strong>
+<p>4) Simplest dictionary attack </p>
+<p><strong class="red">
+$w = "dictionary.txt"<br>
+##<br>
+$w </strong>
+<p>5) Dictionary attack with all possible upper/lower-case combinations:</p>
+<p><strong class="red">
+$w = "dictionary.txt"<br>
+##<br>
+ {$w}.u</strong>
+<p>5) Let me cite ZEXPL2L program specification: "Let you have an archive with the password looking like "Heaven!!!", but you have forgotten, how many !s were there in the end and what kind of letters lower- or upper-cased were used: "HeAvEn!!!", "Heaven!" or "HeAven!!!!". But fortunately you remember your password to be 10 characters at most and 7 characters at least." This password will be written in 
+PDL language as follows: </p>
+<strong class="red"><p>
+min = 7<br>
+max = 10<br>
+##<br>
+{heaven}.u ! *</strong>
+
+<p> Instead of min= and max= -l and -g option can be used.
+
+<p>Suppose that among other things you have mistaken while typing the main part of the password. So the following one is worth attention:
+<p><strong class="red">
+min = 7<br>
+max = 10<br>
+##<br>
+{{heaven}}.u ! *</strong>
+<p>6) One more citation from the same specification: "Let you have two variants of the password string: "myprog", "MyProg", "my_prog" and "My_Prog". It will be written as:
+<p><strong class="red"> [mM] y [_ \0] [pP] rog</strong>
+<p>7) Password consists of exactly six letters from national alphabet:
+<p><strong class="red"> $i $i $i $i $i $i</strong>
+<p>But 
+<p>
+<strong class="red">
+ $i *(6)<br>
+</strong>
+ are far more efficient.
+<p>8) The date in DDMMYYYY format:
+<p><strong class="red"> $1 * (8)</strong>
+<p>But 
+<p>
+<strong class="red">
+ ##<br>
+ [0123] $1 [01] $1 [12][90] $1 *(2)<br>
+</strong>
+ will generate much less passwords.
+
+<p>9) You remember your password to be "MyVeryLongGoodPassword", but it is not 
+valid for some reason. Try to use the following ones: </p>
+<p >
+<center>
+	<table><tbody>
+<tr><td width=320>
+	<p><strong class="red"> {MyVeryLongGoodPassword}</strong>
+	</td><td>2360 passwords in total</td></tr>
+<tr><td>
+	<p><strong class="red"> {MyVeryLongGoodPassword}.2</strong>
+	</td><td>2 785 406 passwords</td></tr>
+</tbody></table>
+</center>
+<p>10) You know you password to be a meaningful word with a digit inserted elsewhere. The definition file is:
+<p><strong class="red"> $p = [$1]       # the insertion set is defined as a set of digits<br>
+ ##<br>
+ {$w}
+</strong>
+<p>11) Syllable attack. You need to set up a dictionary of possible syllables of your language and then to search through all the meaningful words by proceeding as follows:
+<p><strong class="red">
+ $u		# monosyllabic words<br>
+ $u$u		# disyllabic words<br>
+ $u$u$u		# etc.<br>
+ $u$u$u$u
+</strong>
+<p>12) In order to run your program in parallel on two computers, give them the following definition files:
+<p style="text-indent:0">
+<center><table><tbody>
+<tr><td width=200><strong class="red">
+[abcdefghijklm] $a *</strong></td><td>for the first one</td></tr>
+<tr><td><strong class="red">
+[nopqrstuvwxyz] $a *</strong></td><td>for the second one</td></tr>
+</tbody></table></center>
+<p>Proceed similarly with n computers.
+
+<p style="text-indent:0"><a name=5><br></a><b>5. <a href=#0>Possible problems (FAQ)</a></b>
+
+<p>1. How to break and then to continue the search.
+<dd>The program may be broken painlessly once the message "Testing XX-chars passwords..." is displayed, and then the search may be continued with - lXX option (both XX are equal).
+<p>2. How to resume search from the password XXX?
+<dd>Sorry, no way. I's implemented in <a href="http://www.parallelrecovery.com">Parallel Password Recovery</a>.
+<p>3. The program has been searching for 10 days, but my password is not yet at hand.
+<dd>Alas! It can't be helped. May be your password is too long, or the search set is wrong. Additional information on the password is necessary.
+<p>4. There are files with different passwords in the archive. What am I to do?
+<dd>Just remove (using RAR) files with already known passwords.
+<p>5. I have tested your program. To my mind, your program is nothing but utter error, it cannot even find "aaa2"-like password.
+<dd>RTFM. Distributive file password.def searches through only lower-cased Latin letters. Change your password definition to "[$a $1] *" and everything will be ok.
+<p>6. I've got beginning of one file from archive in plain text. Will it be useful to me?
+<dd>No. At least, I couldn't use it. Could you? RAR encryption sources are available in WinRAR distribution.
+<p>7. I'd like to optimize your program. How can I get the sources?
+<dd>You don't need them. Take UnRar sources and optimize the SetCryptKeys() function. Next contact me.
+<p>8. Is there any option to save program operation log?
+<dd>Probably, you have never dealt with UNIX. Use:
+<div> crark [options] > file</div>
+<dd>If you don't like this, use "tee" utility.
+<p>9. Is it possible to speed-up dictionary attack?
+<dd>Yes, just sort your dictionary by the words size
+<p>10. Your distribution kit is packed with a password in itself!!! I do not find it funny!
+<dd>You are reading this file, so you have solved this problem.
+<p>11. I need GUI, multicore support, pause/resume etc.
+<dd>cRARk is the free program, and I have no time to support such features. To find all you need, please look at
+<a href="http://www.parallelrecovery.com">Parallel Password Recovery</a> which licensed
+cRARk and PDL engine.
+<p>12. How to use my GPU card to recover passwords?
+<dd>You need:
+
+<dd>a) NVIDIA GPU from GeForce 6xx serie or AMD GPU from 6xxx serie (GCN is preferred)
+<dd>b) latest drivers
+<dd>c) the password definition should contain '*' symbol
+<dd>d) only RAR 3.x-5.x archives are supported, except of files with
+advanced comperssion (-mc) methods
+<p>13. I've got some errors when using my GPU card.
+<dd>a) Please install the latest drivers!
+<dd>b) Don't overclock neither GPU nor CPU!
+<dd>c) On Windows, if the message about the stopped driver appears, please use the
+file driver-timeout.reg from the distributon archive.
+
+<p style="text-indent:0"><a name=6><br></a><b>6. <a href=#0>On PDL library</a></b>
+
+<p>PDL 2.0 library is distributed by the author as FREEWARE in the form of source text. The reference to PDL as an obligatory requirement for your programs.
+<p>PDL 3.0-4.0 with plenty of new features is not a FREEWARE.
+
+<p style="text-indent:0"><a name=7><br></a><b>7. <a href=#0>How to contact the author</a></b>
+
+<p>Only by e-mail.
+<p>Please don't ask me about how to run the program etc - I have no time to explain individually.
+<p style="text-indent:0">e-mail: &nbsp;pavel@semjanov.com
+<br>WWW: &nbsp; &nbsp; <a href=http://www.semjanov.com target=_blank>http://www.semjanov.com</a>
+<p>Program URL is: <a href=http://www.crark.net/ target=_blank>http://www.crark.net</a>
+<p>A lot of free, benchmarked password crackers you'll find at:
+<center><a href=http://www.password-crackers.com target=_blank>http://www.password-crackers.com</a></center>
+<p>cRARk is a FREE program, so all the claims will be rejected. Anyway, I'll be very grateful for pointing out the serious errors, such as:
+<ul style="margin:5 0 0 24;text-indent:0">
+<li>the program hangs up while searching (the lack of displayed messages is not an evidence of hangup);
+<li>the program cannot find such password in such archive, although the set of characters in search is specified correctly
+</ul>
+<p>I'll be also glad to any constructive suggestions on improvements of program operation.
+
+<p style="text-indent:0"><a name=8><br></a><b>8. <a href=#0>Special thanks and copyright notices</a></b>
+
+<dd>To Eugene Roshal for good encryption algorithm.
+<dd>To Eugene D. Shelwien for his outstanding ideas about RAR 2.0 cracking.
+<dd>To John Vandermeersch &lt;vanderme@tornado.be>, Roman Paul and Natalia Leonova for correcting this docs.
+<dd>To Phil Frisbie, Jr. (pfrisbie@geocities.com) for CPU identification function.
+<dd>To Andy Polyakov and other guys from OpenSSL for some optimization ideas.
+<dd>This software uses cryptographic routines from GRYPTOGAMS:
+Copyright (c) 2006, CRYPTOGAMS by <appro@openssl.org>
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+      *	Redistributions of source code must retain copyright notices,
+	this list of conditions and the following disclaimer.
+
+      *	Redistributions in binary form must reproduce the above
+	copyright notice, this list of conditions and the following
+	disclaimer in the documentation and/or other materials
+	provided with the distribution.
+
+      *	Neither the name of the CRYPTOGAMS nor the names of its
+	copyright holder and contributors may be used to endorse or
+	promote products derived from this software without specific
+	prior written permission.
+
+ALTERNATIVELY, provided that this notice is retained in full, this
+product may be distributed under the terms of the GNU General Public
+License (GPL), in which case the provisions of the GPL apply INSTEAD OF
+those given above.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDER AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+<p style="text-indent:0"><br><p>Good luck!
+<p>Pavel Semjanov, St.-Petersburg.
+</div></div>
+
+</body>
+</html>

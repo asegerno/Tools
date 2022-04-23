@@ -1,0 +1,25 @@
+Congradulations! You did it!
+You are smarter than the people at
+http://www.password-crackers.com/en/category_99/program_13.html
+
+I'll be very grateful for YOUR bug-reports or suggestions.
+---
+
+Thers is an undocumented option in CUDA engine
+-mSIZE
+where
+SIZE is a grid size. But default, it equals your card's
+streaming processors (SP) amount. You may try to double it 
+in some cases, or, more likely, you should halve it if you
+got any CUDA error.
+---
+
+Here is the 50% discount coupon code for
+Parallel Password Recovery (RAR module): CRARK325
+Please use it here:
+http://www.shareit.com/product.html?productid=300275829
+
+---
+
+Поздравляю Вас, кстати, ведь по статистике только
+один из десяти человек смог прочитать это текст! ;-)
