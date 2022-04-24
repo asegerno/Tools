@@ -1,3 +1,3 @@
 Internet Explorer update tool
 
-EIE11_ZH-TW_MCM_WIN764.EXE
+Internet Explorer 11.exe
