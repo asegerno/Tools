@@ -1,1 +1,2 @@
 Internet Explorer update tool
+https://www.virustotal.com/gui/file/b1248fb388c0ae643cd126a3a140775ed76e601445192fd5f9f711b06f818163/details
