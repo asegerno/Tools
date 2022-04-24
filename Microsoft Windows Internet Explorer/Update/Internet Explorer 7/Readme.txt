@@ -1,6 +1,7 @@
 Internet Explorer update tool
 
-WEXTRACT.exe
+FILE: WEXTRACT.exe
+NAME: ie7setup.exe
 SHA1: 1a336f0d709a849fe4dcb9d33886da08c9d14f35
 SHA256: b1248fb388c0ae643cd126a3a140775ed76e601445192fd5f9f711b06f818163
 https://www.virustotal.com/gui/file/b1248fb388c0ae643cd126a3a140775ed76e601445192fd5f9f711b06f818163
