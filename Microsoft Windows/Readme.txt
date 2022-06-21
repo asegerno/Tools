@@ -25,3 +25,4 @@ https://archive.org/download/en_windows_vista_sp2_x64_dvd_342267_202007/en_windo
 
 Windows Xp x64
 https://archive.org/download/en_win_xp_pro_x64_with_sp2_vl_x13-41611_202105/en_win_xp_pro_x64_with_sp2_vl_X13-41611.iso
+https://archive.org/download/windows-xp-all-sp-msdn-iso-files-en-de-ru-tr-x86-x64/en_win_xp_pro_x64_with_sp2_vl_x13-41611.iso
