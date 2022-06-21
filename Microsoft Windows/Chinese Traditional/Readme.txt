@@ -3,7 +3,7 @@ https://www.microsoft.com/windows/
 
 Windows 7
 Home
-1 [1](ed2k://|file|tw_windows_7_home_premium_with_sp1_x86_dvd_620862.iso|2624999424|D41FC7E50BF544C4713C32169D782377|/)
+1 [GitHub Pages](ed2k://|file|tw_windows_7_home_premium_with_sp1_x86_dvd_620862.iso|2624999424|D41FC7E50BF544C4713C32169D782377|/)
 
 Professional
 https://archive.org/download/Win7ProSP1CHT/Win7_Pro_SP1_Chinese%28Traditional%29_x64.iso
