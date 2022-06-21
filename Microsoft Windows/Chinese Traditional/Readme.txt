@@ -17,3 +17,5 @@ https://archive.org/download/tw_windows_vista_with_sp2_x64_dvd/tw_windows_vista_
 Windows Xp x64
 https://archive.org/download/en_win_xp_pro_x64_with_sp2_vl_x13-41611_202105/en_win_xp_pro_x64_with_sp2_vl_X13-41611.iso
 https://archive.org/download/windows-xp-all-sp-msdn-iso-files-en-de-ru-tr-x86-x64/en_win_xp_pro_x64_with_sp2_vl_x13-41611.iso
+
+https://archive.org/download/windows-xp-mui-all-language-packs-sp0-sp1-sp2-sp3-x86-x64/ko_chs_cht_mui_winxp_pro_x64_cd3.iso
