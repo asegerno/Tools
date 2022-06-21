@@ -12,16 +12,16 @@ https://www.microsoft.com/en-us/software-download/windows8
 
 Windows 7
 Home
-https://msdn.cyanlemon.net/global/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Windows%207/%E8%8B%B1%E8%AF%AD/en_windows_7_home_premium_x64_dvd_x15-65733.iso
+https://archive.org/download/en_windows_7_home_premium_with_sp1_x64_dvd_u_676549_202107/en_windows_7_home_premium_with_sp1_x64_dvd_u_676549.iso
 
 Professional
-https://msdn.cyanlemon.net/global/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Windows%207/%E8%8B%B1%E8%AF%AD/en_windows_7_professional_with_sp1_x64_dvd_u_676939.iso
+https://archive.org/download/en_windows_7_professional_with_sp1_x64_dvd_u_676939_202006/en_windows_7_professional_with_sp1_x64_dvd_u_676939.iso
 
 Ultimate
-https://msdn.cyanlemon.net/global/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Windows%207/%E8%8B%B1%E8%AF%AD/en_windows_7_ultimate_n_with_sp1_x64_dvd_u_677543.iso
+https://archive.org/download/en_windows_7_ultimate_with_sp1_x64_dvd_u_677332_202107/en_windows_7_ultimate_with_sp1_x64_dvd_u_677332.iso
 
 Windows Vista
-https://msdn.cyanlemon.net/global/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Windows%20Vista%EF%BC%88%E4%B8%8D%E5%AE%8C%E6%95%B4%EF%BC%89/%E8%8B%B1%E8%AF%AD/en_windows_vista_sp2_x64_dvd_342267.iso
+https://archive.org/download/en_windows_vista_sp2_x64_dvd_342267_202007/en_windows_vista_sp2_x64_dvd_342267.iso
 
 Windows Xp x64
-https://msdn.cyanlemon.net/global/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Windows%20XP/%E8%8B%B1%E8%AF%AD/en_win_xp_pro_x64_with_sp2_vl_X13-41611.iso
+https://archive.org/download/en_win_xp_pro_x64_with_sp2_vl_x13-41611_202105/en_win_xp_pro_x64_with_sp2_vl_X13-41611.iso
